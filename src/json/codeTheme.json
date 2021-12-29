@@ -1,0 +1,42 @@
+{
+    "theme":[
+        {
+            "value": "3024-day",
+            "label": "3024-day"
+        },
+        {
+            "value": "eclipse",
+            "label": "eclipse"
+        },
+        {
+            "value": "idea",
+            "label": "idea"
+        },
+        {
+            "value": "blackboard",
+            "label": "blackboard"
+        },
+        {
+            "value":  "dracula",
+            "label":  "dracula"
+        },
+        {
+            "value": "darcula",
+            "label": "darcula"
+        }
+    ],
+    "mode":[
+        {
+            "value": "text/x-csrc",
+            "label": "C"
+        },
+        {
+            "value": "text/x-c++src",
+            "label": "C++"
+        },
+        {
+            "value": "text/x-java",
+            "label": "Java"
+        }
+    ]
+}

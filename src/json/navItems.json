@@ -1,0 +1,151 @@
+[
+    {
+      "iconfont": "icon-04xuexifenxiang",
+      "name": "线性表",
+      "path": "1",
+      "children": [
+        {
+          "name": "顺序表",
+          "path": "1-1",
+          "children": [
+            {
+              "name": "插入",
+              "path": "/sequInsert"
+            },
+            {
+              "name": "删除",
+              "path": "/sequDelete"
+            },
+            {
+              "name": "合并",
+              "path": "/sequMerge"
+            },
+            {
+              "name": "查找",
+              "path": "/sequSearch"
+            }
+          ]
+        },
+        {
+          "name": "单链表",
+          "path": "1-2",
+          "children": [
+            {
+              "name": "创建",
+              "path": "/linkMerge"
+            },
+            {
+              "name": "删除",
+              "path": "/linkDelete"
+            },
+            {
+              "name": "插入",
+              "path": "/LinkInsert"
+            },
+            {
+              "name": "查找",
+              "path": "/linkSearch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "iconfont": "icon-07wangzhanxiangmu",
+      "name": "栈和队列",
+      "path": "2",
+      "children": [
+        {
+          "name": "栈",
+          "path": "2-1",
+          "children": [
+            {
+              "name": "自动出入栈",
+              "path": "/stack"
+            },
+            {
+              "name": "手动出入栈",
+              "path": "/stackHand"
+            }
+          ]
+        },
+        {
+          "name": "队列",
+          "path": "2-2",
+          "children": [
+            {
+              "name": "自动出入队",
+              "path": "/queue"
+            },
+            {
+              "name": "手动出入队",
+              "path": "/queueHand"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "iconfont": "icon-13xiangmuguanli",
+      "name": "二叉树",
+      "path": "3",
+      "children": [
+        {
+          "name": "二叉树",
+          "path": "3-2",
+          "children": [
+            {
+              "name": "先序新建",
+              "path": "/treeBuild"
+            },
+            {
+              "name": "先序遍历",
+              "path": "/proorder"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "iconfont": "icon-18qianyanjishu",
+      "name": "排序",
+      "path": "5",
+      "children": [
+        {
+          "name": "选择排序",
+          "path": "/selectSort"
+        },
+        {
+          "name": "插入排序",
+          "path": "/insertSort"
+        },
+        {
+          "name": "冒泡排序",
+          "path": "/bubbleSort"
+        },
+        {
+          "name": "希尔排序",
+          "path": "/shellSort"
+        }
+      ]
+    },
+    {
+      "iconfont": "icon-12chanpinyanfa",
+      "name": "查找",
+      "path": "6",
+      "children": [
+        {
+          "name": "顺序查找",
+          "path": "/orderSearch"
+        },
+        {
+          "name": "折半查找",
+          "path": "/binarySearch"
+        },
+        {
+          "name": "插入查找",
+          "path": "/insertSearch"
+        }
+      ]
+    }
+  ]
