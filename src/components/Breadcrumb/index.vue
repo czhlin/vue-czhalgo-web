@@ -1,3 +1,9 @@
+<!--
+ * @Date: 2022-02-19 16:36:22
+ * @LastEditors: czhlin
+ * @LastEditTime: 2022-02-21 23:06:36
+ * @FilePath: \graduation-project\vue-czhalgo-web\src\components\Breadcrumb\index.vue
+-->
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb">
@@ -48,7 +54,13 @@ export default {
     pathCompile(path) {
       // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
       const { params } = this.$route
-      var toPath = pathToRegexp.compile(path)
+      let toPath=null
+      try {
+        toPath= pathToRegexp.compile(path, { decode: decodeURIComponent })
+      } catch (error) {
+        toPath=()=>path
+      }
+      
       return toPath(params)
     },
     handleLink(item) {

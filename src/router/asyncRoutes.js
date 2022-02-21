@@ -1,12 +1,22 @@
 /*
  * @Date: 2021-11-04 20:28:07
  * @LastEditors: czhlin
- * @LastEditTime: 2021-12-28 10:19:38
- * @FilePath: \笔记d:\桌面\项目\graduation-project\vue-czhalgo-web\src\router\asyncRoutes.js
+ * @LastEditTime: 2022-02-21 22:01:08
+ * @FilePath: \graduation-project\vue-czhalgo-web\src\router\asyncRoutes.js
  */
 import sortRouter from './modules/sort'
+import linkListRouter from './modules/link-list'
+import graphRouter from './modules/graph'
+import searchRouter from './modules/search'
+import seqListRouter from './modules/seq-list'
+import treeRouter from './modules/tree'
 export default [
   sortRouter,
+  linkListRouter,
+  graphRouter,
+  searchRouter,
+  seqListRouter,
+  treeRouter,
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

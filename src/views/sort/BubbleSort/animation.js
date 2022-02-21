@@ -1,77 +1,30 @@
 /*
  * @Date: 2021-11-25 13:55:40
  * @LastEditors: czhlin
- * @LastEditTime: 2021-12-29 16:09:06
- * @FilePath: \笔记d:\桌面\项目\graduation-project\vue-czhalgo-web\src\views\sort\BubbleSort\animation.js
+ * @LastEditTime: 2022-02-21 20:14:58
+ * @FilePath: \graduation-project\vue-czhalgo-web\src\views\sort\BubbleSort\animation.js
  */
 import Animation, { Sort } from '@/animation'
-// import { fabric } from 'fabric'
+import {doFor,doIf,setAnim} from '@/animation/utils'
+import {getMiddlewareFn} from '@/utils'
 const { exchange, change } = Sort.action
 class BubbleSortAnimation extends Animation {
-  // 声明data
   data={
     i: 0,
     j: 0,
     status: 0,
-    arr: [
-      {
-        value: 20,
-        status: 0
-      },
-      {
-        value: 1,
-        status: 0
-      },
-      {
-        value: 30,
-        status: 0
-      },
-      {
-        value: 25,
-        status: 0
-      },
-      {
-        value: 20,
-        status: 0
-      },
-      {
-        value: 1,
-        status: 0
-      },
-      {
-        value: 30,
-        status: 0
-      },
-      {
-        value: 25,
-        status: 0
-      },
-      {
-        value: 20,
-        status: 0
-      },
-      {
-        value: 1,
-        status: 0
-      },
-      {
-        value: 30,
-        status: 0
-      },
-      {
-        value: 25,
-        status: 0
-      }
-    ],
+    arr: [],
     cursor: 1,
-    sort: null
+    sort: null,
+    // 用于解决13位置上是否有动画的bug
+    hasAnim:false
   }
-
   created() {
     const {
       $,
       stage
     } = this
+    
     $.sort = new Sort($.arr, {
       left: stage.width,
       top: stage.height / 2,
@@ -80,6 +33,7 @@ class BubbleSortAnimation extends Animation {
     })
     stage.renderAll()
     stage.add($.sort.ref)
+    this.initCode()
   }
 
   get AnimOption() {
@@ -92,7 +46,8 @@ class BubbleSortAnimation extends Animation {
     }
   }
 
-  // 动画方法
+  /**动画方法**/
+  //选中当两排序条
   activeAnim(i, j) {
     const { $ } = this
     $.arr[i].status = $.arr[i].status || 1
@@ -100,13 +55,17 @@ class BubbleSortAnimation extends Animation {
     return $.sort.doAnim(change(
       $.arr.map((item, index) => (
         {
-          status: [1, -1].includes(item.status) && ![i, j].includes(index) ? 0 : item.status,
+          status: 
+            [1, -1].includes(item.status) && 
+            ![i, j].includes(index) 
+              ? 0 
+              : item.status,
           index
         }
       ))
     ))(this.AnimOption)
   }
-
+  //两排序条交换，flage用于控制交换或者不交换
   exchangeAnim(i, j, flage = true) {
     const { $ } = this
     flage && ([$.arr[i], $.arr[j]] = [$.arr[j], $.arr[i]])
@@ -117,7 +76,7 @@ class BubbleSortAnimation extends Animation {
       ])
     )(this.AnimOption)
   }
-
+  //某排序条完成时的动画
   completeAnim(i) {
     const { $ } = this
     $.arr[i].status = 2
@@ -149,18 +108,17 @@ class BubbleSortAnimation extends Animation {
       $,
       action
     } = this
+    
     if ($.j < $.arr.length - $.i - 1) {
       await this.activeAnim($.j, $.j + 1)
       $.status = 2
-      action.startCode()
     } else {
       await this.completeAnim($.j)
-
       $.i++
       $.j = 0
       $.status = 0
-      action.startCode()
     }
+    action.startCode()
   }
 
   async doOutLoop() {
@@ -198,24 +156,57 @@ class BubbleSortAnimation extends Animation {
   doCode() {
     const {
       action,
-      state,
       $
     } = this
-    setTimeout(() => {
-      this.setCursor(++$.cursor)
+    // console.log($.arr);
+    // 设置下一次的光标
+    $.cursor=this.nextCursor($.cursor)
+    this.setCursor($.cursor)
+    // 判断当前是否需要执行动画
+    if(this.hasAnim($.cursor)){
       action.startAnim()
-    }, state.speed)
-  }
-
-  doFor(fn, index, callback, arr = [0, 5]) {
-    const [start, end] = arr
-    if (index === start && fn()) {
-      index++
-    } else if (index > start && index < end) {
-      callback()
-    } else {
-      index = end
+    }else{
+      action.startCode()
     }
+  }
+  // 初始化代码动画
+  initCode(){
+    const {
+      $
+    } = this
+    
+    this.nextCursor=getMiddlewareFn([
+        doFor(
+          ()=>{},
+          ()=>($.i<$.arr.length),
+          ()=>{}
+        )(5,15),
+        doFor(
+          ()=>{},
+          ()=>($.j<$.arr.length-$.i-1),
+          ()=>{}
+        )(7,14),
+        doIf(
+          ()=>{
+            $.hasAnim=!($.arr[$.j].value>$.arr[$.j+1].value)
+            return !$.hasAnim
+          }
+        )(9,13)
+    ],cursor=>cursor+1)
+
+    this.hasAnim=getMiddlewareFn([
+      setAnim(
+        ()=>([15,9,12,16].includes($.cursor))
+      ),
+      setAnim(
+        ()=>{
+          if($.cursor===13){
+            console.log($.j,$.arr,$.j+1);
+          }
+          return  ($.cursor===13)&&$.hasAnim
+        }
+      )
+    ],()=>false)
   }
 }
 export default BubbleSortAnimation

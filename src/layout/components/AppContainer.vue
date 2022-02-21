@@ -27,13 +27,22 @@
                 name="animation"
                 :speed="palySpeed"
                 :isPlay="isPlay"
-                :isBreakpoint="isBreakpoint"
-                :cursor="cursor_"
+                :isBreakPoint="isBreakPoint"
+                :cursor="cursor"
                 :language="getlanguage"
               />
             </el-card>
             <div style="text-align: center; margin-top: 10px">
-              <slot name="button-group">
+              <slot 
+                name="button-group"
+              >
+              <!--  
+                :isPlay="isPlay"
+                :pause="pause"
+                :paly="paly"
+                :edit="()=>changeDialogVisible = true"
+                :add="()=>addDialogVisible = true"
+              -->
                 <el-button-group>
                   <el-button
                     type="primary"
@@ -134,21 +143,25 @@
         <el-dialog
           :title="title[0]"
           :visible.sync="changeDialogVisible"
-          :before-close="handleClose"
+          :before-close="configObj.display.editFooter?handleClose:null"
+          :width="device==='mobile'?'100%':'50%'"
+          center
         >
           <slot name="change-dialog-div" />
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="changeDialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="changeDialog()">确 定</el-button>
+          <span v-if="configObj.display.editFooter" slot="footer" class="dialog-footer">
+              <el-button @click="changeDialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="changeDialog()">确 定</el-button>
           </span>
         </el-dialog>
         <el-dialog
           :title="title[1]"
           :visible.sync="addDialogVisible"
-          :before-close="handleClose"
+          :before-close="configObj.display.addFooter?handleClose:null"
+          :width="device==='mobile'?'100%':'50%'"
+          center
         >
           <slot name="add-dialog-div" />
-          <span slot="footer" class="dialog-footer">
+          <span v-if="configObj.display.addFooter" slot="footer" class="dialog-footer">
             <el-button @click="addDialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="addDialog()">确 定</el-button>
           </span>
@@ -169,16 +182,241 @@
     </el-container>
   </div>
 </template>
+<script>
+import { mapState, mapActions,mapGetters } from 'vuex'
+const { mode, theme } = require('@/json/codeTheme.json')//获取代码风格配置文件
+export default {
+  name: 'AppContainer',
+  props: {
+    //配置项
+    configObj: {
+      type: Object,
+      default: () => {
+        return {
+          option: {
+            mode: 'text/x-java',
+            readOnly: true
+          },
+          title: [
+            '更改数组',
+            '输入数据'
+          ],
+          levelList: [
+            {
+              name: 'xxx'
+            },
+            {
+              name: 'yyy'
+            }
+          ],
+          display: {
+            add: false,
+            edit: false,
+            addFooter:true,
+            editFooter:true
+          },
+          codeDataList: ['没有代码...', '没有代码...', '没有代码...']
+        }
+      }
+    },
+    //光标
+    cursor: {
+      type: Number,
+      default:1
+    },
+  },
+  data() {
+    return {
+      ...this.configObj,
+      // 语言切换默认是java[c、c++、java]
+      language: '2',
+      // 默认动画速度50%
+      speed: 50,
+      // 是否在播放
+      isPlay: false,
+      // 数据更改弹框
+      changeDialogVisible: false,
+      // 数据添加弹框
+      addDialogVisible: false,
+      //代码风格
+      themeOption: theme,
+      modeOption: mode,
+      //当前代码主题
+      themeVal: 'darcula',
+      //当前代码字符串
+      codeData: '',
+      //断点集合
+      breakpoints: new Set()
+    }
+  },
+  // 计算属性
+  computed: {
+    ...mapState('animation', ['animState','preState', 'map']),
+    ...mapGetters([
+      'device'
+    ]),
+    /* 合并codemirror配置 */
+    codemirrorOption() {
+      return {
+        ...this.option,
+        lineNumbers: true,
+        lineWrapping: true,
+        styleActiveLine: true,
+        theme: 'darcula',
+        gutters: ['CodeMirror-linenumbers', 'breakpoints']
+      }
+    },
+    // 获得播放速度
+    palySpeed() {
+      return 801 - 8 * this.speed
+    },
+    // 获取当前语言
+    getlanguage() {
+      return this.modeOption[this.language].label
+    },
+    // change事件触发
+    changeVal() {
+      return {
+        speed: this.palySpeed,
+        isPlay: this.isPlay,
+        language: this.getlanguage
+      }
+    },
+    //判断当前是否为断点
+    isBreakPoint(){
+      return this.breakpoints.has(this.cursor);
+    }
+  },
+  // 监听
+  watch: {
+    themeVal(newVal) {
+      this.editor.setOption('theme', newVal)
+    },
+    cursor(newVal) {
+      this.setCursor(newVal - 1, 0)
+    },
+    changeVal(state,old) {
+       if (this.animState !== this.map.FINISH) {
+        this.playAnim(state.isPlay)
+      }
+      if(old.language!==state.language){
+        this.breakpoints.clear();
+      }
+      this.$emit('change', state)
+    },
+    animState(val) {
+      if (val === this.map.FINISH) {
+        this.pause()
+        this.playAnim(true)
+      }
+    }
+  },
+  // 挂载
+  mounted() {
+    this.init()
+    this.changeDataCode()
+    this.$emit('break-fn',this.isBreak.bind(this))
+  },
+  // 方法
+  methods: {
+    ...mapActions('animation', ['playAnim']),
+    // 初始化
+    init() {
+      this.editor = this.$refs.code.codemirror
+      console.log(this.editor);
+    },
+    //监听光标的变化
+    cursorActivity(val) {
+      const line=val.doc.getCursor().line + 1;
+      this.$emit('cursor',line)
+    },
+    // 播放
+    play() {
+      this.isPlay = !this.isPlay
+    },
+    // 暂停
+    pause() {
+      this.isPlay = false
+    },
+    // 设置光标位置
+    setCursor(row,col){
+      row = row % this.editor.lineCount()
+      this.editor.setCursor(row, col, {
+        scroll: false
+      })
+    },
+    //判断遇到断点是否应该停下
+    isBreak(cursor){
+      const {CODE,ANIM,PEND}=this.map;
+      const isBreakPoint=this.breakpoints.has(cursor-1);
+      const result= isBreakPoint&&[CODE,ANIM,PEND].includes(this.preState)&&[CODE,PEND]
+      if(result){
+          this.pause()
+          this.playAnim(false)
+      }
+      return result
+    },
+    // 更改数据
+    changeDialog() {
+      this.$emit('edit', () => (this.changeDialogVisible = false))
+    },
+    // 添加数据
+    addDialog() {
+      this.$emit('add', () => (this.addDialogVisible = false))
+    },
+    // 切换代码语言
+    changeDataCode() {
+      this.codeData = this.codeDataList[this.language]
+      this.editor.setOption('mode', this.modeOption[this.language].value)
+    },
+    // 生成断点
+    makeMarker() {
+      var marker = document.createElement('div')
+      marker.style.color = '#FA7A6D'
+      marker.innerHTML = '●'
+      return marker
+    },
+    // 打断点
+    gutterClick(cm, n) {
+      const info = cm.lineInfo(n)
+      this.breakpoints.has(n) ? this.breakpoints.delete(n) : this.breakpoints.add(n)
+      cm.setGutterMarker(
+        n,
+        'breakpoints',
+        info.gutterMarkers ? null : this.makeMarker()
+      )
+    },
+    // 清空断点
+    clearBreakPoint(){
+      for(const n of this.breakpoints){
+         this.editor.setGutterMarker(
+          n,
+          'breakpoints',
+          null
+        )
+      }
+      this.breakpoints.clear()
+    },
+    // 关闭提示
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then((_) => {
+          done()
+        })
+        .catch((_) => {})
+    }
+  }
+}
+</script>
 <style lang="scss" scoped>
   .app-container {
     .show-row {
       margin-top: 10px;
       min-height: 60vh;
       .anim-box {
-        height: 60vh;
         padding-bottom: 10px;
         .animation-card {
-          height: 90%;
+          height: 54vh;
         }
       }
       .code-box {
@@ -186,7 +424,7 @@
           height: 100%;
           font-size: 20px;
           .code-mirror {
-            height: 53vh;
+            height: 54vh;
             background: #2B2B2B;
           }
         }
@@ -272,212 +510,3 @@
     }
   }
 </style>
-<script>
-import { objKeyValueIsSame } from '@/utils/validate'
-import { mapState, mapActions } from 'vuex'
-const { mode, theme } = require('@/json/codeTheme.json')
-export default {
-  name: 'AppContainer',
-  props: {
-    configObj: {
-      type: Object,
-      default: () => {
-        return {
-          option: {
-            mode: 'text/x-java',
-            readOnly: true
-          },
-          title: [
-            '更改数组',
-            '输入数据'
-          ],
-          levelList: [
-            {
-              name: 'xxx'
-            },
-            {
-              name: 'yyy'
-            }
-          ],
-          display: {
-            add: false,
-            edit: false
-          },
-          codeDataList: ['没有代码...', '没有代码...', '没有代码...']
-        }
-      }
-    },
-    cursor: {
-      type: Number,
-      default: 1
-    }
-  },
-  data() {
-    return {
-      ...this.configObj,
-      // 语言切换默认是java[c、c++、java]
-      language: '2',
-      // 默认动画速度50%
-      speed: 50,
-      // 是否在播放
-      isPlay: false,
-      // 数据更改弹框
-      changeDialogVisible: false,
-      // 数据添加弹框
-      addDialogVisible: false,
-      // 判断当前在哪个位置
-      focus: -1,
-      // 光标位置
-      cursor_: this.cursor,
-      cursor_time: 0,
-      themeVal: 'darcula',
-      themeOption: theme,
-      modeOption: mode,
-      codeData: '',
-      breakpoints: new Set()
-    }
-  },
-  // 计算属性
-  computed: {
-    ...mapState('animation', ['animState', 'map']),
-    /* 合并codemirror配置 */
-    codemirrorOption() {
-      return {
-        ...this.option,
-        lineNumbers: true,
-        lineWrapping: true,
-        styleActiveLine: true,
-        theme: 'darcula',
-        gutters: ['CodeMirror-linenumbers', 'breakpoints']
-      }
-    },
-    // 获得播放速度
-    palySpeed() {
-      return 801 - 8 * this.speed
-    },
-    // 判断当前是不是断点
-    isBreakpoint() {
-      return {
-        value: this.breakpoints.has(this.cursor - 1),
-        cursor_time: this.cursor_time,
-        time: Date.now()
-      }
-    },
-    // 判断当前语言
-    getlanguage() {
-      return this.modeOption[this.language].label
-    },
-    // change事件触发
-    changeVal() {
-      return {
-        speed: this.palySpeed,
-        isPlay: this.isPlay,
-        isBreakpoint: this.isBreakpoint.value,
-        language: this.getlanguage
-      }
-    }
-  },
-  // 监听
-  watch: {
-    themeVal(newVal, oldVal) {
-      this.editor.setOption('theme', newVal)
-    },
-    cursor(newVal) {
-      this.setCursor(newVal - 1, 0)
-    },
-    changeVal(newVal, oldVal) {
-      if (!objKeyValueIsSame(newVal, oldVal)) {
-        this.$emit('change', newVal)
-      }
-    },
-    animState(val) {
-      if (val === this.map.FINISH) {
-        this.pause()
-        this.playAnim(true)
-      }
-    },
-    isBreakpoint(newVal) {
-      const { CODE, ANIM } = this.map
-      const stateArr = [CODE, ANIM]
-      if (newVal.value && stateArr.includes(this.animState)) {
-        this.pause()
-        this.playAnim(false)
-      }
-    }
-  },
-  // 挂载
-  mounted() {
-    this.init()
-    this.changeDataCode()
-  },
-  // 方法
-  methods: {
-    ...mapActions('animation', ['playAnim']),
-    // 初始化
-    init() {
-      this.editor = this.$refs.code.codemirror
-    },
-    cursorActivity(val) {
-      this.cursor_ = val.doc.getCursor().line + 1
-      this.cursor_time = Date.now()
-      this.$emit('cursor', this.cursor_)
-    },
-    // 播放
-    play() {
-      this.isPlay = !this.isPlay
-    },
-    // 暂停
-    pause() {
-      this.isPlay = false
-    },
-    // 设置光标位置
-    setCursor(row, col) {
-      row = row % this.editor.lineCount()
-      this.cursor_ = row
-      this.cursor_time = Date.now()
-      this.editor.setCursor(row, col, {
-        scroll: false
-      })
-    },
-    // 更改数据
-    changeDialog() {
-      this.$emit('edit', () => (this.changeDialogVisible = false))
-    },
-    // 添加数据
-    addDialog() {
-      this.$emit('add', () => (this.addDialogVisible = false))
-    },
-    // 切换代码语言
-    changeDataCode() {
-      this.codeData = this.codeDataList[this.language]
-      this.editor.setOption('mode', this.modeOption[this.language].value)
-    },
-    // 生成断点
-    makeMarker() {
-      var marker = document.createElement('div')
-      marker.style.color = '#FA7A6D'
-      marker.innerHTML = '●'
-      return marker
-    },
-    // 打断点
-    gutterClick(cm, n) {
-      const info = cm.lineInfo(n)
-      this.breakpoints.has(n) ? this.breakpoints.delete(n) : this.breakpoints.add(n)
-      cm.setGutterMarker(
-        n,
-        'breakpoints',
-        info.gutterMarkers ? null : this.makeMarker()
-      )
-    },
-    // 关闭提示
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then((_) => {
-          done()
-        })
-        .catch((_) => {})
-    }
-  }
-}
-</script>
-

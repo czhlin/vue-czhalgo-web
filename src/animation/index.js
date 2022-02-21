@@ -1,10 +1,11 @@
 /*
  * @Date: 2021-11-29 14:59:43
  * @LastEditors: czhlin
- * @LastEditTime: 2021-12-28 14:25:50
- * @FilePath: \笔记d:\桌面\项目\graduation-project\vue-czhalgo-web\src\animation\index.js
+ * @LastEditTime: 2022-02-21 13:29:14
+ * @FilePath: \graduation-project\vue-czhalgo-web\src\animation\index.js
  */
 import Sort from './sort'
+import {deepClone} from '@/utils'
 class Animation {
   /**
    *
@@ -23,7 +24,8 @@ class Animation {
   static setRef(ref) {
     Ref.REF = ref
   }
-
+  data={}
+  //用于存放数据
   get $() {
     return this.data
   }
@@ -31,11 +33,13 @@ class Animation {
   set $(val) {
     this.data = val
   }
-
-  init({ stage, setCursor, ...action }) {
+  init({ stage, anim, setCursor,data, ...action }) {
     this.stage = stage
     this.setCursor = setCursor
     this.action = action
+    this.anim = anim
+    this.data={...this.data,...deepClone(data)}
+    Object.entries(Ref)
     if (this.created) {
       this.created()
     }

@@ -1,8 +1,13 @@
 /*
  * @Date: 2021-12-27 17:40:13
  * @LastEditors: czhlin
- * @LastEditTime: 2021-12-28 12:23:13
- * @FilePath: \笔记d:\桌面\项目\graduation-project\vue-czhalgo-web\src\utils\anim.js
+ * @LastEditTime: 2022-02-20 21:11:32
+ * @FilePath: \graduation-project\vue-czhalgo-web\src\utils\anim.js
+ */
+/**
+ * 
+ * @param {*} thisArg fabric 图形对象
+ * @returns fn(obj,op)=>promise
  */
 export function animation(thisArg) {
   return (obj, op = {}) => (

@@ -1,8 +1,8 @@
 /*
  * @Date: 2021-12-27 12:31:25
  * @LastEditors: czhlin
- * @LastEditTime: 2021-12-28 16:46:04
- * @FilePath: \笔记d:\桌面\项目\graduation-project\vue-czhalgo-web\src\animation\sort\item.js
+ * @LastEditTime: 2022-02-20 21:46:38
+ * @FilePath: \graduation-project\vue-czhalgo-web\src\animation\sort\item.js
  */
 import { fabric } from 'fabric'
 class Item {
@@ -28,7 +28,8 @@ class Item {
       x,
       y
     } = data
-
+    this.data = data
+    
     const Line = new fabric.Rect({
       width,
       height,
@@ -46,14 +47,14 @@ class Item {
         originY: 'bottom'
       }
     )
-    this.data = data
-
+    //将fabric对象挂载到this.ref
     this.ref = new fabric.Group([Line, Text], {
       top: y,
       left: x,
       originX: 'center',
       originY: 'bottom'
     })
+    //扩展fill属性，用于填充长条的颜色
     Object.defineProperties(this.ref, {
       fill: {
         get() {
@@ -64,10 +65,6 @@ class Item {
         }
       }
     })
-  }
-
-  doAnim(action) {
-
   }
 }
 export default Item

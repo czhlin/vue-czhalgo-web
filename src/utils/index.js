@@ -1,7 +1,7 @@
 /**
  * Created by PanJiaChen on 16/11/18.
  */
-
+ 
 /**
  * Parse the time to string
  * @param {(Object|string|number)} time
@@ -286,27 +286,6 @@ export function debounce(func, wait, immediate) {
   }
 }
 
-/**
- * This is just a simple version of deep copy
- * Has a lot of edge cases bug
- * If you want to use a perfect deep copy, use lodash's _.cloneDeep
- * @param {Object} source
- * @returns {Object}
- */
-export function deepClone(source) {
-  if (!source && typeof source !== 'object') {
-    throw new Error('error arguments', 'deepClone')
-  }
-  const targetObj = source.constructor === Array ? [] : {}
-  Object.keys(source).forEach(keys => {
-    if (source[keys] && typeof source[keys] === 'object') {
-      targetObj[keys] = deepClone(source[keys])
-    } else {
-      targetObj[keys] = source[keys]
-    }
-  })
-  return targetObj
-}
 
 /**
  * @param {Array} arr
@@ -376,7 +355,7 @@ export function getStyle(el) {
  */
 export function getParentWH(node, name) {
   node = typeof node === 'string' ? document.querySelector(node) : node
-  const el = node.parentNode
+  const el = node?.parentNode||document.createElement('div')
   var val = name === 'width' ? el.offsetWidth : el.offsetHeight
   var which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom']
   // display is none
@@ -392,3 +371,16 @@ export function getParentWH(node, name) {
   }
   return val
 }
+/**
+ * 
+ * @param {*} arr 中间件数组
+ * @param {*} opFn 都不满足时的最后处理
+ * @returns 处理函数
+ */
+export function getMiddlewareFn(arr,opFn){
+  return arr.reduce((pre,cur)=>cur(pre),opFn)
+}
+/**
+ * 批量导出导出
+ */
+export {deepClone} from './deepClone'

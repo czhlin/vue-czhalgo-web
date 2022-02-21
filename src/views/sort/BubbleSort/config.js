@@ -1,8 +1,8 @@
 /*
  * @Date: 2021-11-23 20:59:50
  * @LastEditors: czhlin
- * @LastEditTime: 2021-12-27 10:10:28
- * @FilePath: \笔记d:\桌面\项目\graduation-project\vue-czhalgo-web\src\views\sort\BubbleSort\config.js
+ * @LastEditTime: 2022-02-21 19:22:52
+ * @FilePath: \graduation-project\vue-czhalgo-web\src\views\sort\BubbleSort\config.js
  */
 // codeMirror 配置
 const option = {
@@ -10,8 +10,8 @@ const option = {
 }
 // 
 const title = [
-  '更改数组',
-  '输入数据'
+  '输入排序数据',
+  '演示操作'
 ]
 // 面包屑
 const levelList = [
@@ -21,7 +21,9 @@ const levelList = [
 ]
 const display = {
   add: false,
-  edit: false
+  edit: false,
+  addFooter:false,
+  editFooter:true
 }
 // 代码数据
 const codeDataList = [
