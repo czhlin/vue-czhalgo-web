@@ -15,32 +15,32 @@ const sortRouter = {
   name: 'sort',
   meta: {
     title: '排序',
-    icon: 'table'
+    icon: 'sort'
   },
   children: [
     {
       path: 'bubbleSort',
       component: () => import('@/views/sort/BubbleSort'),
       name: 'BubbleSort',
-      meta: { title: '冒泡排序', noCache: true, icon: 'table' }
+      meta: { title: '冒泡排序', noCache: true, icon: 'sort' }
     },
     {
       path: 'mergeSort',
       component: () => import('@/views/sort/MergeSort'),
       name: 'MergeSort',
-      meta: { title: '归并排序', noCache: true, icon: 'table' }
+      meta: { title: '归并排序', noCache: true, icon: 'sort' }
     },
     {
       path: 'quickSort',
       component: () => import('@/views/sort/QuickSort'),
       name: 'QuickSort',
-      meta: { title: '快速排序', noCache: true, icon: 'table' }
+      meta: { title: '快速排序', noCache: true, icon: 'sort' }
     },
     {
       path: 'shellSort',
       component: () => import('@/views/sort/ShellSort'),
       name: 'ShellSort',
-      meta: { title: '希尔排序', noCache: true, icon: 'table' }
+      meta: { title: '希尔排序', noCache: true, icon: 'sort' }
     }
   ]
 }

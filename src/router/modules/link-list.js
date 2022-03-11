@@ -13,32 +13,32 @@ const linkListRouter = {
   name: 'link-list',
   meta: {
     title: '链表',
-    icon: 'eye-open'
+    icon: 'link-list'
   },
   children: [
     {
       path: 'buildLinkList',
       component: () => import('@/views/link-list/BuildLinkList'),
       name: 'BuildLinkList',
-      meta: { title: '链表新建', noCache: true, icon: 'eye-open' }
+      meta: { title: '链表新建', noCache: true, icon: 'link-list' }
     },
     {
       path: 'searchLinkList',
       component: () => import('@/views/link-list/SearchLinkList'),
       name: 'SearchLinkList',
-      meta: { title: '链表搜索', noCache: true, icon: 'eye-open' }
+      meta: { title: '链表搜索', noCache: true, icon: 'link-list' }
     },
     {
       path: 'insertLinkList',
       component: () => import('@/views/link-list/InsertLinkList'),
       name: 'InsertLinkList',
-      meta: { title: '链表插入', noCache: true, icon: 'eye-open' }
+      meta: { title: '链表插入', noCache: true, icon: 'link-list' }
     },
     {
       path: 'removeLinkList',
       component: () => import('@/views/link-list/RemoveLinkList'),
       name: 'RemoveLinkList',
-      meta: { title: '链表移除', noCache: true, icon: 'eye-open' }
+      meta: { title: '链表移除', noCache: true, icon: 'link-list' }
     },
   ]
 }

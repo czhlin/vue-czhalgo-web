@@ -13,32 +13,32 @@ const searchRouter = {
   name: 'search',
   meta: {
     title: '查找算法',
-    icon: 'eye-open'
+    icon: 'search'
   },
   children: [
     {
       path: 'binarySearch',
       component: () => import('@/views/search/BinarySearch'),
       name: 'BinarySearch',
-      meta: { title: '折半查找', noCache: true, icon: 'eye-open' }
+      meta: { title: '折半查找', noCache: true, icon: 'search' }
     },
     {
       path: 'blockSearch',
       component: () => import('@/views/search/BlockSearch'),
       name: 'BlockSearch',
-      meta: { title: '分块查找', noCache: true, icon: 'eye-open' }
+      meta: { title: '分块查找', noCache: true, icon: 'search' }
     },
     {
       path: 'hashSearch',
       component: () => import('@/views/search/HashSearch'),
       name: 'HashSearch',
-      meta: { title: '哈希查找', noCache: true, icon: 'eye-open' }
+      meta: { title: '哈希查找', noCache: true, icon: 'search' }
     },
     {
       path: 'seqSearch',
       component: () => import('@/views/search/SeqSearch'),
       name: 'SeqSearch',
-      meta: { title: '顺序查找', noCache: true, icon: 'eye-open' }
+      meta: { title: '顺序查找', noCache: true, icon: 'search' }
     },
   ]
 }

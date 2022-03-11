@@ -11,7 +11,6 @@ export default [
     redirect: '/home',
     component: Layout,
     children: [
-      { path: 'dashboard',  redirect: '/home' },
       {
         path: 'home',
         component: () => import('@/views/home/Home.vue'),
@@ -20,6 +19,7 @@ export default [
       }
     ]
   },
+  { path: '/dashboard',  redirect: '/home' },
   {
     path: '/redirect/:path(.*)',
     component: () => import('@/views/redirect/index')

@@ -13,32 +13,32 @@ const seqListRouter = {
   name: 'seq-list',
   meta: {
     title: '顺序表',
-    icon: 'eye-open'
+    icon: 'seq-list'
   },
   children: [
     {
       path: 'eightQueens',
       component: () => import('@/views/seq-list/EightQueens'),
       name: 'EightQueens',
-      meta: { title: '八皇后问题', noCache: true, icon: 'eye-open' }
+      meta: { title: '八皇后问题', noCache: true, icon: 'seq-list' }
     },
     {
       path: 'queue',
       component: () => import('@/views/seq-list/Queue'),
       name: 'Queue',
-      meta: { title: '队列', noCache: true, icon: 'eye-open' }
+      meta: { title: '队列', noCache: true, icon: 'seq-list' }
     },
     {
       path: 'stack',
       component: () => import('@/views/seq-list/Stack'),
       name: 'Stack',
-      meta: { title: '栈', noCache: true, icon: 'eye-open' }
+      meta: { title: '栈', noCache: true, icon: 'seq-list' }
     },
     {
       path: 'towerOfHanoi',
       component: () => import('@/views/seq-list/TowerOfHanoi'),
       name: 'TowerOfHanoi',
-      meta: { title: '汉罗塔问题', noCache: true, icon: 'eye-open' }
+      meta: { title: '汉罗塔问题', noCache: true, icon: 'seq-list' }
     },
   ]
 }

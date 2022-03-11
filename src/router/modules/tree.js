@@ -13,32 +13,32 @@ const treeRouter = {
   name: 'tree',
   meta: {
     title: '树',
-    icon: 'eye-open'
+    icon: 'tree'
   },
   children: [
     {
       path: 'huffmanTree',
       component: () => import('@/views/tree/HuffmanTree'),
       name: 'HuffmanTree',
-      meta: { title: '霍夫曼树', noCache: true, icon: 'eye-open' }
+      meta: { title: '霍夫曼树', noCache: true, icon: 'tree' }
     },
     {
       path: 'priorityQueue',
       component: () => import('@/views/tree/PriorityQueue'),
       name: 'PriorityQueue',
-      meta: { title: '优先队列', noCache: true, icon: 'eye-open' }
+      meta: { title: '优先队列', noCache: true, icon: 'tree' }
     },
     {
       path: 'saveTree',
       component: () => import('@/views/tree/SaveTree'),
       name: 'SaveTree',
-      meta: { title: '树的存储', noCache: true, icon: 'eye-open' }
+      meta: { title: '树的存储', noCache: true, icon: 'tree' }
     },
     {
       path: 'traversalTree',
       component: () => import('@/views/tree/TraversalTree'),
       name: 'TraversalTree',
-      meta: { title: '树的遍历', noCache: true, icon: 'eye-open' }
+      meta: { title: '树的遍历', noCache: true, icon: 'tree' }
     },
   ]
 }
