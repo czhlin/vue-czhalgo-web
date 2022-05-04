@@ -21,7 +21,7 @@ export default {
     }
   },
   mounted() {
-    this.canvas = new fabric.Canvas('canvas')
+    this.canvas = new fabric.StaticCanvas('canvas')
     window.onresize = this.resizeCanvas.bind(this)
     // 解决第一次加载出现空白页bug
     setTimeout(() => {

@@ -113,7 +113,7 @@
                 >
                   <div class="radio-div">
                     <el-radio-group v-model="language" size="mini" @change="changeDataCode">
-                      <el-radio-button label="0" border>C</el-radio-button>
+                      <el-radio-button label="0" border @click="changeDataCode">C</el-radio-button>
                       <el-radio-button label="1" border>C++</el-radio-button>
                       <el-radio-button label="2" border>Java</el-radio-button>
                     </el-radio-group>
@@ -230,6 +230,7 @@ export default {
       ...this.configObj,
       // 语言切换默认是java[c、c++、java]
       language: '2',
+      oldLanguage:'2',
       // 默认动画速度50%
       speed: 50,
       // 是否在播放
@@ -309,12 +310,19 @@ export default {
         this.pause()
         this.playAnim(true)
       }
+    },
+    isPlay(val){
+      if(val){
+        this.$message.success("开始播放")
+      }else{
+        this.$message("停止播放")
+      }
     }
   },
   // 挂载
   mounted() {
     this.init()
-    this.changeDataCode()
+    this.setDataCode()
     this.$emit('break-fn',this.isBreak.bind(this))
   },
   // 方法
@@ -323,7 +331,6 @@ export default {
     // 初始化
     init() {
       this.editor = this.$refs.code.codemirror
-      console.log(this.editor);
     },
     //监听光标的变化
     cursorActivity(val) {
@@ -364,8 +371,22 @@ export default {
     addDialog() {
       this.$emit('add', () => (this.addDialogVisible = false))
     },
-    // 切换代码语言
-    changeDataCode() {
+    // 修复代码语言
+    changeDataCode(ev){
+      this.language=this.oldLanguage
+       this.$confirm('确认要切换语言吗？')
+        .then((_) => {
+          this.language=ev
+          this.oldLanguage=ev
+          this.setDataCode()
+          this.$message.success("代码语言已更换!")
+        })
+        .catch((_) => {
+          this.$message("当前操作已放弃")
+        })
+    },
+    // 设置代码语言
+    setDataCode() {
       this.codeData = this.codeDataList[this.language]
       this.editor.setOption('mode', this.modeOption[this.language].value)
     },

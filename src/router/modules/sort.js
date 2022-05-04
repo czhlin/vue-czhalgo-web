@@ -15,7 +15,8 @@ const sortRouter = {
   name: 'sort',
   meta: {
     title: '排序',
-    icon: 'sort'
+    icon: 'sort',
+    src:'sort',
   },
   children: [
     {

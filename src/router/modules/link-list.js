@@ -8,19 +8,20 @@ import Layout from '@/layout'
 
 const linkListRouter = {
   path: '/link-list',
-  redirect: '/link-list/buildLinkList',
+  redirect: '/link-list/searchLinkList',
   component: Layout,
   name: 'link-list',
   meta: {
     title: '链表',
-    icon: 'link-list'
+    icon: 'link-list',
+    src:'linkList',
   },
   children: [
     {
-      path: 'buildLinkList',
-      component: () => import('@/views/link-list/BuildLinkList'),
-      name: 'BuildLinkList',
-      meta: { title: '链表新建', noCache: true, icon: 'link-list' }
+      path: 'ChangeLinkList',
+      component: () => import('@/views/link-list/ChangeLinkList'),
+      name: 'ChangeLinkList',
+      meta: { title: '链表修改', noCache: true, icon: 'link-list' }
     },
     {
       path: 'searchLinkList',
@@ -38,7 +39,7 @@ const linkListRouter = {
       path: 'removeLinkList',
       component: () => import('@/views/link-list/RemoveLinkList'),
       name: 'RemoveLinkList',
-      meta: { title: '链表移除', noCache: true, icon: 'link-list' }
+      meta: { title: '链表删除', noCache: true, icon: 'link-list' }
     },
   ]
 }

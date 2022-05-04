@@ -8,37 +8,38 @@ import Layout from '@/layout'
 
 const seqListRouter = {
   path: '/seq-list',
-  redirect: '/seq-list/queue',
+  redirect: '/seq-list/searchSeqList',
   component: Layout,
   name: 'seq-list',
   meta: {
     title: '顺序表',
-    icon: 'seq-list'
+    icon: 'seq-list',
+    src:'seqList',
   },
   children: [
     {
-      path: 'eightQueens',
-      component: () => import('@/views/seq-list/EightQueens'),
-      name: 'EightQueens',
-      meta: { title: '八皇后问题', noCache: true, icon: 'seq-list' }
+      path: 'changeSeqList',
+      component: () => import('@/views/seq-list/ChangeSeqList'),
+      name: 'ChangeSeqList',
+      meta: { title: '顺序修改', noCache: true, icon: 'seq-list' }
     },
     {
-      path: 'queue',
-      component: () => import('@/views/seq-list/Queue'),
-      name: 'Queue',
-      meta: { title: '队列', noCache: true, icon: 'seq-list' }
+      path: 'searchSeqList',
+      component: () => import('@/views/seq-list/SearchSeqList'),
+      name: 'SearchSeqList',
+      meta: { title: '顺序搜索', noCache: true, icon: 'seq-list' }
     },
     {
-      path: 'stack',
-      component: () => import('@/views/seq-list/Stack'),
-      name: 'Stack',
-      meta: { title: '栈', noCache: true, icon: 'seq-list' }
+      path: 'addSeqList',
+      component: () => import('@/views/seq-list/AddSeqList'),
+      name: 'AddSeqList',
+      meta: { title: '顺序插入', noCache: true, icon: 'seq-list' }
     },
     {
-      path: 'towerOfHanoi',
-      component: () => import('@/views/seq-list/TowerOfHanoi'),
-      name: 'TowerOfHanoi',
-      meta: { title: '汉罗塔问题', noCache: true, icon: 'seq-list' }
+      path: 'removeSeqList',
+      component: () => import('@/views/seq-list/RemoveSeqList'),
+      name: 'RemoveSeqList',
+      meta: { title: '顺序删除', noCache: true, icon: 'seq-list' }
     },
   ]
 }

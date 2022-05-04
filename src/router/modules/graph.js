@@ -15,6 +15,7 @@ const GraphRouter = {
     title: '图',
     icon: 'graph'
   },
+  hidden: true,
   children: [
     {
       path: 'dijkstra',

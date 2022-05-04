@@ -8,37 +8,38 @@ import Layout from '@/layout'
 
 const treeRouter = {
   path: '/tree',
-  redirect: '/tree/traversalTree',
+  redirect: '/tree/buildTree',
   component: Layout,
   name: 'tree',
   meta: {
-    title: '树',
-    icon: 'tree'
+    title: '二叉树',
+    icon: 'tree',
+    src:'tree',
   },
   children: [
     {
-      path: 'huffmanTree',
-      component: () => import('@/views/tree/HuffmanTree'),
-      name: 'HuffmanTree',
-      meta: { title: '霍夫曼树', noCache: true, icon: 'tree' }
+      path: 'buildTree',
+      component: () => import('@/views/tree/BuildTree'),
+      name: 'BuildTree',
+      meta: { title: '树的创建', noCache: true, icon: 'tree' }
     },
     {
-      path: 'priorityQueue',
-      component: () => import('@/views/tree/PriorityQueue'),
-      name: 'PriorityQueue',
-      meta: { title: '优先队列', noCache: true, icon: 'tree' }
+      path: 'inorderTraversal',
+      component: () => import('@/views/tree/InorderTraversal'),
+      name: 'InorderTraversal',
+      meta: { title: '中序遍历', noCache: true, icon: 'tree' }
     },
     {
-      path: 'saveTree',
-      component: () => import('@/views/tree/SaveTree'),
-      name: 'SaveTree',
-      meta: { title: '树的存储', noCache: true, icon: 'tree' }
+      path: 'postOrderTraversa',
+      component: () => import('@/views/tree/PostOrderTraversa'),
+      name: 'PostOrderTraversa',
+      meta: { title: '后序遍历', noCache: true, icon: 'tree' }
     },
     {
-      path: 'traversalTree',
-      component: () => import('@/views/tree/TraversalTree'),
-      name: 'TraversalTree',
-      meta: { title: '树的遍历', noCache: true, icon: 'tree' }
+      path: 'preorderTraversal',
+      component: () => import('@/views/tree/PreorderTraversal'),
+      name: 'PreorderTraversal',
+      meta: { title: '前序遍历', noCache: true, icon: 'tree' }
     },
   ]
 }

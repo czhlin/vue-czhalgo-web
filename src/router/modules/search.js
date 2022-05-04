@@ -13,7 +13,8 @@ const searchRouter = {
   name: 'search',
   meta: {
     title: '查找算法',
-    icon: 'search'
+    icon: 'search',
+    src:'search',
   },
   children: [
     {

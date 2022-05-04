@@ -1,7 +1,8 @@
 module.exports = {
   title: 'czhAlgo',
-  showSettings: false,
+  showSettings: true,
   tagsView: true,
   fixedHeader: true,
-  sidebarLogo: true
+  sidebarLogo: true,
+  sidebarShow: true
 }

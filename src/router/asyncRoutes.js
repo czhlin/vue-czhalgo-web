@@ -10,13 +10,15 @@ import graphRouter from './modules/graph'
 import searchRouter from './modules/search'
 import seqListRouter from './modules/seq-list'
 import treeRouter from './modules/tree'
+import stackQueueRouter from './modules/stack-queue'
 export default [
-  sortRouter,
   linkListRouter,
+  seqListRouter,
+  stackQueueRouter,
+  treeRouter,
+  sortRouter,
   graphRouter,
   searchRouter,
-  seqListRouter,
-  treeRouter,
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

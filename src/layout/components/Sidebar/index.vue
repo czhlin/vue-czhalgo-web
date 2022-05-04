@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'has-logo':showLogo}">
+  <div v-if="sidebarShow" :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
@@ -49,8 +49,16 @@ export default {
     variables() {
       return variables
     },
+    sidebarShow(){
+      return this.$store.state.settings.sidebarShow
+    },
     isCollapse() {
       return !this.sidebar.opened
+    }
+  },
+  data(){
+    return {
+      
     }
   }
 }

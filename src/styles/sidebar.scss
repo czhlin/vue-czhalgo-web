@@ -157,7 +157,8 @@
   }
 
   // mobile responsive
-  .mobile {
+  .mobile,
+  .noSidebar {
     .main-container {
       margin-left: 0px;
     }
@@ -175,7 +176,13 @@
       }
     }
   }
-
+  .noSidebar {
+    &.hideSidebar {
+      .fixed-header {
+        width: 100%;
+      }
+    }
+  }
   .withoutAnimation {
 
     .main-container,
