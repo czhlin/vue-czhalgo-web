@@ -18,26 +18,26 @@ const seqListRouter = {
   },
   children: [
     {
-      path: 'changeSeqList',
-      component: () => import('@/views/seq-list/ChangeSeqList'),
-      name: 'ChangeSeqList',
-      meta: { title: '顺序修改', noCache: true, icon: 'seq-list' }
+      path: 'mergeSeqList',
+      component: () => import('@/components/linearTable/sequentialTable/merge.vue'),
+      name: 'MergeSeqList',
+      meta: { title: '顺序合并', noCache: true, icon: 'seq-list' }
     },
     {
       path: 'searchSeqList',
-      component: () => import('@/views/seq-list/SearchSeqList'),
+      component: () => import('@/components/linearTable/sequentialTable/search.vue'),
       name: 'SearchSeqList',
       meta: { title: '顺序搜索', noCache: true, icon: 'seq-list' }
     },
     {
       path: 'addSeqList',
-      component: () => import('@/views/seq-list/AddSeqList'),
+      component: () => import('@/components/linearTable/sequentialTable/insert.vue'),
       name: 'AddSeqList',
       meta: { title: '顺序插入', noCache: true, icon: 'seq-list' }
     },
     {
       path: 'removeSeqList',
-      component: () => import('@/views/seq-list/RemoveSeqList'),
+      component: () => import('@/components/linearTable/sequentialTable/delete.vue'),
       name: 'RemoveSeqList',
       meta: { title: '顺序删除', noCache: true, icon: 'seq-list' }
     },

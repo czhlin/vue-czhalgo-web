@@ -27,54 +27,45 @@ const display = {
 }
 // 代码数据
 const codeDataList = [
-  `//插入排序
-    private void sortBubble(int* a,int len)
-    {
-        int i,j,temp;
-        for(i=0;i<len;i++)
-        {
-            for(j=0;j<len-i-1;j++)
-            {
-               if(a[j]>a[j+1]){
-                   temp=a[j];
-                   a[j]=a[j+1];
-                   a[j+1]=temp;
-               }
-            }
-        }
-    }`,
-  `//插入排序
-    private void sortBubble(vector<int>& a)
-    {
-        int i,j,temp,len=a.size();
-        for(i=0;i<len;i++)
-        {
-            for(j=0;j<len-i-1;j++)
-            {
-               if(a[j]>a[j+1]){
-                   temp=a[j];
-                   a[j]=a[j+1];
-                   a[j+1]=temp;
-               }
-            }
-        }
-    }`,
-  `//插入排序
-    private void sortBubble(int[] a)
-    {
-        int i,j,temp,len=a.length;
-        for(i=0;i<len;i++)
-        {
-            for(j=0;j<len-i-1;j++)
-            {
-               if(a[j]>a[j+1]){
-                   temp=a[j];
-                   a[j]=a[j+1];
-                   a[j+1]=temp;
-               }
-            }
-        }
-    }`
+  `//单链表创建
+  void Create(int* nums){
+  
+      Node* temp = head;
+      int b = sizeof(arr) / sizeof(arr[0]) - 1;
+      for (int i = 0; i < b; i++) {
+          Node newNode=(Node*)malloc(sizeof(Node));//创建新的结点
+          newNode->data=i;//设置数据域
+          newNode->next=null;
+          temp->next=newNode;
+      }
+  
+  }`,
+  `//单链表创建
+  void Create(int* nums){
+  
+      Node* temp = head;
+      int b = sizeof(arr) / sizeof(arr[0]) - 1;
+      for (int i = 0; i < b; i++) {
+          Node newNode=(Node*)malloc(sizeof(Node));//创建新的结点
+          newNode->data=i;//设置数据域
+          newNode->next=null;
+          temp->next=newNode;
+      }
+  
+  }`,
+  `//单链表创建
+  void Create(int* nums){
+  
+      Node* temp = head;
+      int b = sizeof(arr) / sizeof(arr[0]) - 1;
+      for (int i = 0; i < b; i++) {
+          Node newNode=(Node*)malloc(sizeof(Node));//创建新的结点
+          newNode->data=i;//设置数据域
+          newNode->next=null;
+          temp->next=newNode;
+      }
+  
+  }`
 ]
 export default {
   option,

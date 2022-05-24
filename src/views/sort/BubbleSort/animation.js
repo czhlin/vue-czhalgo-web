@@ -24,7 +24,7 @@ class BubbleSortAnimation extends Animation {
       $,
       stage
     } = this
-    
+    console.log(stage);
     $.sort = new Sort($.arr, {
       left: stage.width,
       top: stage.height / 2,

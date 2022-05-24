@@ -27,21 +27,15 @@ const sortRouter = {
     },
     {
       path: 'mergeSort',
-      component: () => import('@/views/sort/MergeSort'),
+      component: () => import('@/components/Sort/InsertSort.vue'),
       name: 'MergeSort',
-      meta: { title: '归并排序', noCache: true, icon: 'sort' }
+      meta: { title: '插入排序', noCache: true, icon: 'sort' }
     },
     {
       path: 'quickSort',
       component: () => import('@/views/sort/QuickSort'),
       name: 'QuickSort',
       meta: { title: '快速排序', noCache: true, icon: 'sort' }
-    },
-    {
-      path: 'shellSort',
-      component: () => import('@/views/sort/ShellSort'),
-      name: 'ShellSort',
-      meta: { title: '希尔排序', noCache: true, icon: 'sort' }
     }
   ]
 }

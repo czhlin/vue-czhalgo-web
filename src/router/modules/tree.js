@@ -19,28 +19,16 @@ const treeRouter = {
   children: [
     {
       path: 'buildTree',
-      component: () => import('@/views/tree/BuildTree'),
+      component: () => import('@/components/Tree/TreeBuild.vue'),
       name: 'BuildTree',
       meta: { title: '树的创建', noCache: true, icon: 'tree' }
     },
     {
-      path: 'inorderTraversal',
-      component: () => import('@/views/tree/InorderTraversal'),
-      name: 'InorderTraversal',
-      meta: { title: '中序遍历', noCache: true, icon: 'tree' }
-    },
-    {
-      path: 'postOrderTraversa',
-      component: () => import('@/views/tree/PostOrderTraversa'),
-      name: 'PostOrderTraversa',
-      meta: { title: '后序遍历', noCache: true, icon: 'tree' }
-    },
-    {
       path: 'preorderTraversal',
-      component: () => import('@/views/tree/PreorderTraversal'),
+      component: () => import('@/components/Tree/Proorder.vue'),
       name: 'PreorderTraversal',
-      meta: { title: '前序遍历', noCache: true, icon: 'tree' }
-    },
+      meta: { title: '树的遍历', noCache: true, icon: 'tree' }
+    }
   ]
 }
 

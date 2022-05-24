@@ -5,7 +5,7 @@
  * @FilePath: \graduation-project\vue-czhalgo-web\src\views\sort\MergeSort\index.vue
 -->
 <template>
-  <div class="merge-sort">
+  <div class="change-link-list">
    <platform
     :config="config"
     :animation="animation"
@@ -29,10 +29,19 @@ export default {
     return {
       config,
       animation,
-      data:{}
+      data:{},
     }
   },
+  created(){
+    //  将组件实例挂载到动画上
+    animation.setRef(this)
+  },
+  mounted(){
 
+  },
+  methods:{
+    
+  }
 }
 </script>
 

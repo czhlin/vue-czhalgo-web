@@ -19,25 +19,13 @@ const searchRouter = {
   children: [
     {
       path: 'binarySearch',
-      component: () => import('@/views/search/BinarySearch'),
+      component: () => import('@/components/Search/BinarySearch.vue'),
       name: 'BinarySearch',
       meta: { title: '折半查找', noCache: true, icon: 'search' }
     },
     {
-      path: 'blockSearch',
-      component: () => import('@/views/search/BlockSearch'),
-      name: 'BlockSearch',
-      meta: { title: '分块查找', noCache: true, icon: 'search' }
-    },
-    {
-      path: 'hashSearch',
-      component: () => import('@/views/search/HashSearch'),
-      name: 'HashSearch',
-      meta: { title: '哈希查找', noCache: true, icon: 'search' }
-    },
-    {
       path: 'seqSearch',
-      component: () => import('@/views/search/SeqSearch'),
+      component: () => import('@/components/Search/OrderSearch.vue'),
       name: 'SeqSearch',
       meta: { title: '顺序查找', noCache: true, icon: 'search' }
     },

@@ -5,6 +5,7 @@
  * @FilePath: \graduation-project\vue-czhalgo-web\src\animation\index.js
  */
 import Sort from './sort'
+import LinkList from './link-list'
 import {deepClone} from '@/utils'
 class Animation {
   /**
@@ -46,6 +47,7 @@ class Animation {
   }
 
   changeState(state) {
+    console.log(state,50);
     this.state = state
   }
 
@@ -60,6 +62,7 @@ class Animation {
 const Ref = Animation
 export default Animation
 export {
-  Sort
+  Sort,
+  LinkList
 }
 
